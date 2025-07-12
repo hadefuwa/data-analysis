@@ -385,7 +385,7 @@ function App() {
               
               {/* Summary Cards */}
               <Grid container spacing={3} sx={{ mb: 4 }}>
-                <Grid item xs={12} sm={6} md={3}>
+                <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                   <Card>
                     <CardContent>
                       <Stack direction="row" alignItems="center" spacing={2}>
@@ -405,7 +405,7 @@ function App() {
                   </Card>
                 </Grid>
                 
-                <Grid item xs={12} sm={6} md={3}>
+                <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                   <Card>
                     <CardContent>
                       <Stack direction="row" alignItems="center" spacing={2}>
@@ -425,7 +425,7 @@ function App() {
                   </Card>
                 </Grid>
                 
-                <Grid item xs={12} sm={6} md={3}>
+                <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                   <Card>
                     <CardContent>
                       <Stack direction="row" alignItems="center" spacing={2}>
@@ -445,7 +445,7 @@ function App() {
                   </Card>
                 </Grid>
                 
-                <Grid item xs={12} sm={6} md={3}>
+                <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                   <Card>
                     <CardContent>
                       <Stack direction="row" alignItems="center" spacing={2}>
@@ -468,7 +468,7 @@ function App() {
 
               {/* Severity Distribution */}
               <Grid container spacing={3} sx={{ mb: 4 }}>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <Card>
                     <CardHeader title="Defect Severity Distribution" />
                     <CardContent>
@@ -503,7 +503,7 @@ function App() {
                   </Card>
                 </Grid>
                 
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <Card>
                     <CardHeader title="Top Defect Types" />
                     <CardContent>
