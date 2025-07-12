@@ -50,6 +50,7 @@ import Analysis from './components/Analysis';
 import Description from './components/Description';
 // Import image from top-level assets folder
 import forgingImg from '../../assets/Forging.jpg';
+import './App.css';
 
 // Define the data structure for our defects
 interface DefectData {
@@ -381,29 +382,24 @@ function App() {
           }}
         >
           {activeTab === 'overview' && (
-            <Container maxWidth="xl">
-              <Typography variant="h4" gutterBottom sx={{ mb: 4 }}>
-                Titanium Forging Quality Control Dashboard
-              </Typography>
-              {/* Image and Intro Text Side-by-Side, Responsive */}
-              <Grid container columns={12} spacing={4} alignItems="center" sx={{ mb: 4 }}>
-                <Grid gridColumn="span 5">
-                  <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <img
-                      src={forgingImg}
-                      alt="Titanium forging press"
-                      style={{
-                        width: '100%',
-                        maxWidth: 400,
-                        borderRadius: 16,
-                        boxShadow: '0 4px 24px rgba(0,0,0,0.18)',
-                        objectFit: 'cover',
-                        aspectRatio: '4/3',
-                      }}
-                    />
-                  </Box>
-                </Grid>
-                <Grid gridColumn="span 7">
+            <div className="overview">
+              {/* Image and Intro Text Side-by-Side, Responsive with CSS */}
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', alignItems: 'center', marginBottom: '2rem' }}>
+                <div style={{ flex: '1 1 320px', minWidth: 280, display: 'flex', justifyContent: 'center' }}>
+                  <img
+                    src={forgingImg}
+                    alt="Titanium forging press"
+                    style={{
+                      width: '100%',
+                      maxWidth: 400,
+                      borderRadius: 16,
+                      boxShadow: '0 4px 24px rgba(0,0,0,0.18)',
+                      objectFit: 'cover',
+                      aspectRatio: '4/3',
+                    }}
+                  />
+                </div>
+                <div style={{ flex: '2 1 400px', minWidth: 280 }}>
                   <Box
                     sx={{
                       background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
@@ -426,186 +422,119 @@ function App() {
                       I received a dataset with 1,000 records from a titanium forging facility, each describing a defect found in a forged titanium part. I built this dashboard to explore and analyze the data—looking at defect types (like cracks, inclusions, and warping), where they occurred (flange, bore, web, surface), and how they were detected (ultrasonic, dye penetrant, X-ray, or visual inspection). By visualizing these trends, I identified which defects were most common and costly, and highlighted areas where the forging process could be improved. This project shows how I can turn real manufacturing data into actionable insights using modern data analysis and visualization tools.
                     </Typography>
                   </Box>
-                </Grid>
-              </Grid>
+                </div>
+              </div>
               {/* Summary Cards */}
-              <Grid container columns={12} spacing={3}>
-                <Grid gridColumn="span 3">
-                  <Card>
-                    <CardContent>
-                      <Stack direction="row" alignItems="center" spacing={2}>
-                        <Avatar sx={{ bgcolor: 'primary.main' }}>
-                          <TrendingUpIcon />
-                        </Avatar>
-                        <Box>
-                          <Typography color="text.secondary" gutterBottom variant="body2">
-                            Total Defects
-                          </Typography>
-                          <Typography variant="h4" component="div">
-                            {data.length}
-                          </Typography>
-                        </Box>
-                      </Stack>
-                    </CardContent>
-                  </Card>
-                </Grid>
-                <Grid gridColumn="span 3">
-                  <Card>
-                    <CardContent>
-                      <Stack direction="row" alignItems="center" spacing={2}>
-                        <Avatar sx={{ bgcolor: 'success.main' }}>
-                          <CheckCircleIcon />
-                        </Avatar>
-                        <Box>
-                          <Typography color="text.secondary" gutterBottom variant="body2">
-                            Average Cost
-                          </Typography>
-                          <Typography variant="h4" component="div">
-                            £{(data.reduce((sum, item) => sum + parseFloat(item.repair_cost || '0'), 0) / data.length).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                          </Typography>
-                        </Box>
-                      </Stack>
-                    </CardContent>
-                  </Card>
-                </Grid>
-                <Grid gridColumn="span 3">
-                  <Card>
-                    <CardContent>
-                      <Stack direction="row" alignItems="center" spacing={2}>
-                        <Avatar sx={{ bgcolor: 'warning.main' }}>
-                          <WarningIcon />
-                        </Avatar>
-                        <Box>
-                          <Typography color="text.secondary" gutterBottom variant="body2">
-                            Total Cost
-                          </Typography>
-                          <Typography variant="h4" component="div">
-                            £{data.reduce((sum, item) => sum + parseFloat(item.repair_cost || '0'), 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                          </Typography>
-                        </Box>
-                      </Stack>
-                    </CardContent>
-                  </Card>
-                </Grid>
-                <Grid gridColumn="span 3">
-                  <Card>
-                    <CardContent>
-                      <Stack direction="row" alignItems="center" spacing={2}>
-                        <Avatar sx={{ bgcolor: 'error.main' }}>
-                          <ErrorIcon />
-                        </Avatar>
-                        <Box>
-                          <Typography color="text.secondary" gutterBottom variant="body2">
-                            Critical Defects
-                          </Typography>
-                          <Typography variant="h4" component="div">
-                            {data.filter(item => item.severity === 'critical').length}
-                          </Typography>
-                        </Box>
-                      </Stack>
-                    </CardContent>
-                  </Card>
-                </Grid>
-              </Grid>
-
-              {/* Severity Distribution */}
-              <Grid container columns={12} spacing={3} sx={{ mb: 4 }}>
-                <Grid gridColumn="span 6">
-                  <Card>
-                    <CardHeader title="How I Broke Down Defect Severity" />
-                    <CardContent>
-                      <Stack spacing={2}>
-                        {['critical', 'moderate', 'minor'].map((severity) => {
-                          const count = data.filter(item => (item.severity || '').trim().toLowerCase() === severity).length;
-                          const percentage = ((count / data.length) * 100).toFixed(1);
-                          return (
-                            <Box key={severity}>
+              <div className="summary-cards">
+                <div className="summary-card">
+                  <h3>Total Defects</h3>
+                  <span className="number">{data.length}</span>
+                </div>
+                <div className="summary-card">
+                  <h3>Average Cost</h3>
+                  <span className="number">£{(data.reduce((sum, item) => sum + parseFloat(item.repair_cost || '0'), 0) / data.length).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                </div>
+                <div className="summary-card">
+                  <h3>Total Cost</h3>
+                  <span className="number">£{data.reduce((sum, item) => sum + parseFloat(item.repair_cost || '0'), 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                </div>
+                <div className="summary-card">
+                  <h3>Critical Defects</h3>
+                  <span className="number">{data.filter(item => item.severity && item.severity.toLowerCase() === 'critical').length}</span>
+                </div>
+              </div>
+              {/* Severity and Top Defect Types - CSS grid, no MUI Grid */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem', marginBottom: '2rem' }}>
+                <Card>
+                  <CardHeader title="How I Broke Down Defect Severity" />
+                  <CardContent>
+                    <Stack spacing={2}>
+                      {['critical', 'moderate', 'minor'].map((severity) => {
+                        const count = data.filter(item => (item.severity || '').trim().toLowerCase() === severity).length;
+                        const percentage = ((count / data.length) * 100).toFixed(1);
+                        return (
+                          <Box key={severity}>
+                            <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
+                              <Stack direction="row" spacing={1} alignItems="center">
+                                {getSeverityIcon(severity)}
+                                <Typography variant="body2" sx={{ textTransform: 'capitalize' }}>
+                                  {severity}
+                                </Typography>
+                              </Stack>
+                              <Typography variant="body2" color="text.secondary">
+                                {count} ({percentage}%)
+                              </Typography>
+                            </Stack>
+                            <LinearProgress 
+                              variant="determinate" 
+                              value={parseFloat(percentage)} 
+                              color={getSeverityColor(severity) as any}
+                              sx={{ height: 8, borderRadius: 4 }}
+                            />
+                          </Box>
+                        );
+                      })}
+                      {/* Show unknown severities if any */}
+                      {(() => {
+                        const known = ['critical', 'moderate', 'minor'];
+                        const unknowns = data.filter(item => {
+                          const sev = (item.severity || '').trim().toLowerCase();
+                          return sev && !known.includes(sev);
+                        });
+                        if (unknowns.length > 0) {
+                          const unknownCounts = unknowns.reduce((acc, item) => {
+                            const sev = (item.severity || '').trim();
+                            acc[sev] = (acc[sev] || 0) + 1;
+                            return acc;
+                          }, {} as Record<string, number>);
+                          return Object.entries(unknownCounts).map(([sev, count]) => (
+                            <Box key={sev}>
                               <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
                                 <Stack direction="row" spacing={1} alignItems="center">
-                                  {getSeverityIcon(severity)}
-                                  <Typography variant="body2" sx={{ textTransform: 'capitalize' }}>
-                                    {severity}
+                                  {getSeverityIcon(sev)}
+                                  <Typography variant="body2" sx={{ textTransform: 'capitalize', color: 'orange' }}>
+                                    {sev} (unknown)
                                   </Typography>
                                 </Stack>
                                 <Typography variant="body2" color="text.secondary">
-                                  {count} ({percentage}%)
+                                  {count}
                                 </Typography>
                               </Stack>
-                              <LinearProgress 
-                                variant="determinate" 
-                                value={parseFloat(percentage)} 
-                                color={getSeverityColor(severity) as any}
-                                sx={{ height: 8, borderRadius: 4 }}
-                              />
                             </Box>
-                          );
-                        })}
-                        {/* Show unknown severities if any */}
-                        {(() => {
-                          const known = ['critical', 'moderate', 'minor'];
-                          const unknowns = data.filter(item => {
-                            const sev = (item.severity || '').trim().toLowerCase();
-                            return sev && !known.includes(sev);
-                          });
-                          if (unknowns.length > 0) {
-                            const unknownCounts = unknowns.reduce((acc, item) => {
-                              const sev = (item.severity || '').trim();
-                              acc[sev] = (acc[sev] || 0) + 1;
-                              return acc;
-                            }, {} as Record<string, number>);
-                            return Object.entries(unknownCounts).map(([sev, count]) => (
-                              <Box key={sev}>
-                                <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
-                                  <Stack direction="row" spacing={1} alignItems="center">
-                                    {getSeverityIcon(sev)}
-                                    <Typography variant="body2" sx={{ textTransform: 'capitalize', color: 'orange' }}>
-                                      {sev} (unknown)
-                                    </Typography>
-                                  </Stack>
-                                  <Typography variant="body2" color="text.secondary">
-                                    {count}
-                                  </Typography>
-                                </Stack>
-                              </Box>
-                            ));
-                          }
-                          return null;
-                        })()}
-                      </Stack>
-                    </CardContent>
-                  </Card>
-                </Grid>
-                
-                <Grid gridColumn="span 6">
-                  <Card>
-                    <CardHeader title="Top Defect Types" />
-                    <CardContent>
-                      <Stack spacing={1}>
-                        {Object.entries(
-                          data.reduce((acc, item) => {
-                            acc[item.defect_type] = (acc[item.defect_type] || 0) + 1;
-                            return acc;
-                          }, {} as Record<string, number>)
-                        )
-                          .sort(([,a], [,b]) => b - a)
-                          .slice(0, 5)
-                          .map(([type, count]) => (
-                            <Box key={type} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                              <Typography variant="body2" sx={{ textTransform: 'capitalize' }}>
-                                {type}
-                              </Typography>
-                              <Chip label={count} size="small" color="primary" />
-                            </Box>
-                          ))}
-                      </Stack>
-                    </CardContent>
-                  </Card>
-                </Grid>
-              </Grid>
-
+                          ));
+                        }
+                        return null;
+                      })()}
+                    </Stack>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader title="Top Defect Types" />
+                  <CardContent>
+                    <Stack spacing={1}>
+                      {Object.entries(
+                        data.reduce((acc, item) => {
+                          acc[item.defect_type] = (acc[item.defect_type] || 0) + 1;
+                          return acc;
+                        }, {} as Record<string, number>)
+                      )
+                        .sort(([,a], [,b]) => b - a)
+                        .slice(0, 5)
+                        .map(([type, count]) => (
+                          <Box key={type} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <Typography variant="body2" sx={{ textTransform: 'capitalize' }}>
+                              {type}
+                            </Typography>
+                            <Chip label={count} size="small" color="primary" />
+                          </Box>
+                        ))}
+                    </Stack>
+                  </CardContent>
+                </Card>
+              </div>
               {/* Charts Section */}
               <Charts data={data} />
-            </Container>
+            </div>
           )}
           
           {activeTab === 'charts' && <Charts data={data} />}
