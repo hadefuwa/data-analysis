@@ -136,13 +136,9 @@ function App() {
   const [data, setData] = useState<DefectData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState('overview');
-  const [mobileOpen, setMobileOpen] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
-
   const theme_ = useTheme();
-  const isMobile = useMediaQuery(theme_.breakpoints.down('md'));
 
   // Load and parse the CSV data
   useEffect(() => {
@@ -179,17 +175,6 @@ function App() {
     loadData();
   }, []);
 
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
-
-  const handleTabChange = (tab: string) => {
-    setActiveTab(tab);
-    if (isMobile) {
-      setMobileOpen(false);
-    }
-  };
-
   const getSeverityColor = (severity: string) => {
     switch (severity.toLowerCase()) {
       case 'critical':
@@ -216,74 +201,6 @@ function App() {
     }
   };
 
-  const drawer = (
-    <div>
-      <Toolbar>
-                    <Typography variant="h6" noWrap component="div" sx={{ fontWeight: 700 }}>
-              Titanium Forging Data Analysis
-            </Typography>
-      </Toolbar>
-      <Divider />
-      <List>
-        <ListItem disablePadding>
-          <ListItemButton 
-            selected={activeTab === 'overview'}
-            onClick={() => handleTabChange('overview')}
-          >
-            <ListItemIcon>
-              <DashboardIcon />
-            </ListItemIcon>
-            <ListItemText primary="Overview" />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton 
-            selected={activeTab === 'charts'}
-            onClick={() => handleTabChange('charts')}
-          >
-            <ListItemIcon>
-              <BarChartIcon />
-            </ListItemIcon>
-            <ListItemText primary="Charts & Visualizations" />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton 
-            selected={activeTab === 'table'}
-            onClick={() => handleTabChange('table')}
-          >
-            <ListItemIcon>
-              <TableChartIcon />
-            </ListItemIcon>
-            <ListItemText primary="Raw Data Table" />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton 
-            selected={activeTab === 'analysis'}
-            onClick={() => handleTabChange('analysis')}
-          >
-            <ListItemIcon>
-              <AnalyticsIcon />
-            </ListItemIcon>
-            <ListItemText primary="Detailed Analysis" />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton 
-            selected={activeTab === 'description'}
-            onClick={() => handleTabChange('description')}
-          >
-            <ListItemIcon>
-              <DescriptionIcon />
-            </ListItemIcon>
-            <ListItemText primary="Dataset Description" />
-          </ListItemButton>
-        </ListItem>
-      </List>
-    </div>
-  );
-
   if (loading) {
     return (
       <ThemeProvider theme={theme}>
@@ -291,7 +208,7 @@ function App() {
           <LinearProgress />
           <Container maxWidth="md" sx={{ mt: 8, textAlign: 'center' }}>
             <Typography variant="h4" gutterBottom>
-              Loading Manufacturing Defects Data...
+              Loading Titanium Forging Data...
             </Typography>
             <Typography variant="body1" color="text.secondary">
               Please wait while we load and analyze your data.
@@ -330,27 +247,11 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <CssBaseline />
-        
-        {/* App Bar */}
-        <AppBar
-          position="fixed"
-          sx={{
-            width: { sm: `calc(100% - ${drawerWidth}px)` },
-            ml: { sm: `${drawerWidth}px` },
-          }}
-        >
+        {/* App Bar Only */}
+        <AppBar position="fixed">
           <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { sm: 'none' } }}
-            >
-              <MenuIcon />
-            </IconButton>
             <Typography variant="h6" noWrap component="div">
               Titanium Forging Data Analysis
             </Typography>
@@ -360,210 +261,99 @@ function App() {
             </Typography>
           </Toolbar>
         </AppBar>
-
-        {/* Sidebar */}
-        <Box
-          component="nav"
-          sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        >
-          <Drawer
-            variant="temporary"
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-            sx={{
-              display: { xs: 'block', sm: 'none' },
-              '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-            }}
-          >
-            {drawer}
-          </Drawer>
-          <Drawer
-            variant="permanent"
-            sx={{
-              display: { xs: 'none', sm: 'block' },
-              '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-            }}
-            open
-          >
-            {drawer}
-          </Drawer>
-        </Box>
-
-        {/* Main Content */}
-        <Box
-          component="main"
-          sx={{
-            flexGrow: 1,
-            p: 3,
-            width: { sm: `calc(100% - ${drawerWidth}px)` },
-            mt: 8,
-          }}
-        >
-          {activeTab === 'overview' && (
-            <div className="overview">
-              {/* Image and Intro Text Side-by-Side, Responsive with CSS */}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', alignItems: 'center', marginBottom: '2rem' }}>
-                <div style={{ flex: '1 1 320px', minWidth: 280, display: 'flex', justifyContent: 'center' }}>
-                  <img
-                    src={forgingImg}
-                    alt="Titanium forging press"
-                    style={{
-                      width: '100%',
-                      maxWidth: 400,
-                      borderRadius: 16,
-                      boxShadow: '0 4px 24px rgba(0,0,0,0.18)',
-                      objectFit: 'cover',
-                      aspectRatio: '4/3',
-                    }}
-                  />
-                </div>
-                <div style={{ flex: '2 1 400px', minWidth: 280 }}>
-                  <Box
+        {/* Main Content - All sections combined */}
+        <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 8, width: '100%' }}>
+          {/* Overview Section */}
+          <div className="overview">
+            <Typography variant="h4" gutterBottom sx={{ mb: 4 }}>
+              Titanium Forging Data Analysis
+            </Typography>
+            {/* Image and Intro Text */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', alignItems: 'center', marginBottom: '2rem' }}>
+              <div style={{ flex: '1 1 320px', minWidth: 280, display: 'flex', justifyContent: 'center' }}>
+                <img
+                  src={forgingImg}
+                  alt="Titanium forging press"
+                  style={{
+                    width: '100%',
+                    maxWidth: 400,
+                    borderRadius: 16,
+                    boxShadow: '0 4px 24px rgba(0,0,0,0.18)',
+                    objectFit: 'cover',
+                    aspectRatio: '4/3',
+                  }}
+                />
+              </div>
+              <div style={{ flex: '2 1 400px', minWidth: 280 }}>
+                <Box
+                  sx={{
+                    background: 'linear-gradient(135deg, #23272F 0%, #1e88e5 100%)',
+                    borderRadius: 4,
+                    boxShadow: '0 2px 16px rgba(0,0,0,0.10)',
+                    p: 3,
+                    borderLeft: '6px solid #1e88e5',
+                    mb: 2,
+                  }}
+                >
+                  <Typography
+                    variant="body1"
                     sx={{
-                      background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
-                      borderRadius: 4,
-                      boxShadow: '0 2px 16px rgba(0,0,0,0.10)',
-                      p: 3,
-                      borderLeft: '6px solid #1976d2',
-                      mb: 2,
+                      fontWeight: 500,
+                      fontSize: '1.15rem',
+                      color: '#F3F6F9',
+                      textShadow: '0 1px 2px rgba(0,0,0,0.08)',
                     }}
                   >
-                    <Typography
-                      variant="body1"
-                      sx={{
-                        fontWeight: 500,
-                        fontSize: '1.15rem',
-                        color: '#1a237e',
-                        textShadow: '0 1px 2px rgba(0,0,0,0.08)',
-                      }}
-                    >
-                      I received a dataset with 1,000 records from a titanium forging facility, each describing a defect found in a forged titanium part. I built this dashboard to explore and analyze the data—looking at defect types (like cracks, inclusions, and warping), where they occurred (flange, bore, web, surface), and how they were detected (ultrasonic, dye penetrant, X-ray, or visual inspection). By visualizing these trends, I identified which defects were most common and costly, and highlighted areas where the forging process could be improved. This project shows how I can turn real manufacturing data into actionable insights using modern data analysis and visualization tools.
-                    </Typography>
-                  </Box>
-                </div>
+                    I received a dataset with 1,000 records from a titanium forging facility, each describing a defect found in a forged titanium part. I built this dashboard to explore and analyze the data—looking at defect types (like cracks, inclusions, and warping), where they occurred (flange, bore, web, surface), and how they were detected (ultrasonic, dye penetrant, X-ray, or visual inspection). By visualizing these trends, I identified which defects were most common and costly, and highlighted areas where the forging process could be improved. This project shows how I can turn real manufacturing data into actionable insights using modern data analysis and visualization tools.
+                  </Typography>
+                </Box>
               </div>
-              {/* Summary Cards */}
-              <div className="summary-cards">
-                <div className="summary-card">
-                  <h3>Total Defects</h3>
-                  <span className="number">{data.length}</span>
-                </div>
-                <div className="summary-card">
-                  <h3>Average Cost</h3>
-                  <span className="number">£{(data.reduce((sum, item) => sum + parseFloat(item.repair_cost || '0'), 0) / data.length).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-                </div>
-                <div className="summary-card">
-                  <h3>Total Cost</h3>
-                  <span className="number">£{data.reduce((sum, item) => sum + parseFloat(item.repair_cost || '0'), 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-                </div>
-                <div className="summary-card">
-                  <h3>Critical Defects</h3>
-                  <span className="number">{data.filter(item => item.severity && item.severity.toLowerCase() === 'critical').length}</span>
-                </div>
-              </div>
-              {/* Severity and Top Defect Types - CSS grid, no MUI Grid */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem', marginBottom: '2rem' }}>
-                <Card>
-                  <CardHeader title="How I Broke Down Defect Severity" />
-                  <CardContent>
-                    <Stack spacing={2}>
-                      {['critical', 'moderate', 'minor'].map((severity) => {
-                        const count = data.filter(item => (item.severity || '').trim().toLowerCase() === severity).length;
-                        const percentage = ((count / data.length) * 100).toFixed(1);
-                        return (
-                          <Box key={severity}>
-                            <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
-                              <Stack direction="row" spacing={1} alignItems="center">
-                                {getSeverityIcon(severity)}
-                                <Typography variant="body2" sx={{ textTransform: 'capitalize' }}>
-                                  {severity}
-                                </Typography>
-                              </Stack>
-                              <Typography variant="body2" color="text.secondary">
-                                {count} ({percentage}%)
-                              </Typography>
-                            </Stack>
-                            <LinearProgress 
-                              variant="determinate" 
-                              value={parseFloat(percentage)} 
-                              color={getSeverityColor(severity) as any}
-                              sx={{ height: 8, borderRadius: 4 }}
-                            />
-                          </Box>
-                        );
-                      })}
-                      {/* Show unknown severities if any */}
-                      {(() => {
-                        const known = ['critical', 'moderate', 'minor'];
-                        const unknowns = data.filter(item => {
-                          const sev = (item.severity || '').trim().toLowerCase();
-                          return sev && !known.includes(sev);
-                        });
-                        if (unknowns.length > 0) {
-                          const unknownCounts = unknowns.reduce((acc, item) => {
-                            const sev = (item.severity || '').trim();
-                            acc[sev] = (acc[sev] || 0) + 1;
-                            return acc;
-                          }, {} as Record<string, number>);
-                          return Object.entries(unknownCounts).map(([sev, count]) => (
-                            <Box key={sev}>
-                              <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
-                                <Stack direction="row" spacing={1} alignItems="center">
-                                  {getSeverityIcon(sev)}
-                                  <Typography variant="body2" sx={{ textTransform: 'capitalize', color: 'orange' }}>
-                                    {sev} (unknown)
-                                  </Typography>
-                                </Stack>
-                                <Typography variant="body2" color="text.secondary">
-                                  {count}
-                                </Typography>
-                              </Stack>
-                            </Box>
-                          ));
-                        }
-                        return null;
-                      })()}
-                    </Stack>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader title="Top Defect Types" />
-                  <CardContent>
-                    <Stack spacing={1}>
-                      {Object.entries(
-                        data.reduce((acc, item) => {
-                          acc[item.defect_type] = (acc[item.defect_type] || 0) + 1;
-                          return acc;
-                        }, {} as Record<string, number>)
-                      )
-                        .sort(([,a], [,b]) => b - a)
-                        .slice(0, 5)
-                        .map(([type, count]) => (
-                          <Box key={type} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <Typography variant="body2" sx={{ textTransform: 'capitalize' }}>
-                              {type}
-                            </Typography>
-                            <Chip label={count} size="small" color="primary" />
-                          </Box>
-                        ))}
-                    </Stack>
-                  </CardContent>
-                </Card>
-              </div>
-              {/* Charts Section */}
-              <Charts data={data} />
             </div>
-          )}
-          
-          {activeTab === 'charts' && <Charts data={data} />}
-          {activeTab === 'table' && <DataTable data={data} />}
-          {activeTab === 'analysis' && <Analysis data={data} />}
-          {activeTab === 'description' && <Description />}
-        </Box>
+            {/* Summary Cards */}
+            <div className="summary-cards">
+              <div className="summary-card">
+                <h3>Total Defects</h3>
+                <span className="number">{data.length}</span>
+              </div>
+              <div className="summary-card">
+                <h3>Average Cost</h3>
+                <span className="number">£{(data.reduce((sum, item) => sum + parseFloat(item.repair_cost || '0'), 0) / data.length).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+              </div>
+              <div className="summary-card">
+                <h3>Total Cost</h3>
+                <span className="number">£{data.reduce((sum, item) => sum + parseFloat(item.repair_cost || '0'), 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+              </div>
+              <div className="summary-card">
+                <h3>Critical Defects</h3>
+                <span className="number">{data.filter(item => item.severity && item.severity.toLowerCase() === 'critical').length}</span>
+              </div>
+            </div>
+          </div>
 
+          {/* Charts & Visualizations Section */}
+          <Typography variant="h4" gutterBottom sx={{ mt: 6, mb: 2 }}>
+            Charts & Visualizations
+          </Typography>
+          <Charts data={data} />
+
+          {/* Raw Data Table Section */}
+          <Typography variant="h4" gutterBottom sx={{ mt: 6, mb: 2 }}>
+            Raw Data Table
+          </Typography>
+          <DataTable data={data} />
+
+          {/* Detailed Analysis Section */}
+          <Typography variant="h4" gutterBottom sx={{ mt: 6, mb: 2 }}>
+            Detailed Analysis
+          </Typography>
+          <Analysis data={data} />
+
+          {/* Dataset Description Section */}
+          <Typography variant="h4" gutterBottom sx={{ mt: 6, mb: 2 }}>
+            Dataset Description
+          </Typography>
+          <Description />
+        </Box>
         {/* Snackbar for notifications */}
         <Snackbar
           open={snackbarOpen}
