@@ -419,7 +419,7 @@ function App() {
                             Average Cost
                           </Typography>
                           <Typography variant="h4" component="div">
-                            ${(data.reduce((sum, item) => sum + parseFloat(item.repair_cost || '0'), 0) / data.length).toFixed(2)}
+                            £{(data.reduce((sum, item) => sum + parseFloat(item.repair_cost || '0'), 0) / data.length).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           </Typography>
                         </Box>
                       </Stack>
@@ -439,7 +439,7 @@ function App() {
                             Total Cost
                           </Typography>
                           <Typography variant="h4" component="div">
-                            ${data.reduce((sum, item) => sum + parseFloat(item.repair_cost || '0'), 0).toFixed(2)}
+                            £{data.reduce((sum, item) => sum + parseFloat(item.repair_cost || '0'), 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           </Typography>
                         </Box>
                       </Stack>

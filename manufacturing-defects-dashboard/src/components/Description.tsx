@@ -22,7 +22,7 @@ export default function Description() {
               <Typography variant="subtitle1">About This Dataset</Typography>
             </Stack>
             <Typography variant="body1" color="text.secondary" mb={2}>
-              This dataset contains simulated data from our manufacturing facility's quality control system, tracking defects across our production line. Our facility produces products with multiple components that undergo various inspection processes including visual inspection, automated testing, and manual testing. The system monitors structural, functional, and cosmetic defects found in components, surfaces, and internal parts, providing comprehensive quality control insights for our manufacturing operations.
+              This dataset contains records from a titanium forging press operation's quality control system, tracking defects across forged titanium parts. The facility produces high-performance titanium components for aerospace and medical applications. Each forging undergoes rigorous inspection processes including ultrasonic testing, dye penetrant inspection, X-ray, and visual checks. The system monitors structural defects (cracks, voids, inclusions), dimensional/functional defects (warping, out-of-tolerance), and cosmetic defects (surface marks, discoloration) found in features such as flanges, bores, webs, and surfaces, providing comprehensive quality control insights for titanium forging operations.
             </Typography>
             <Divider sx={{ my: 2 }} />
             <Stack direction="row" spacing={1} alignItems="center" mb={1}>
@@ -32,15 +32,15 @@ export default function Description() {
             <Grid container spacing={1}>
               {[
                 ['defect_id', 'Unique identifier for each defect'],
-                ['product_id', 'Identifier for the product associated with the defect'],
-                ['defect_type', 'Type or category of the defect (e.g., cosmetic, functional, structural)'],
+                ['product_id', 'Identifier for the forged titanium part associated with the defect'],
+                ['defect_type', 'Type or category of the defect (e.g., crack, inclusion, void, warp, surface mark)'],
                 ['defect_description', 'Description of the defect'],
                 ['defect_date', 'Date when the defect was detected'],
-                ['defect_location', 'Location within the product where the defect was found (e.g., surface, component)'],
+                ['defect_location', 'Location within the forging where the defect was found (e.g., flange, bore, web, surface)'],
                 ['severity', 'Severity level of the defect (e.g., minor, moderate, critical)'],
-                ['inspection_method', 'Method used to detect the defect (e.g., visual inspection, automated testing)'],
+                ['inspection_method', 'Method used to detect the defect (e.g., ultrasonic, dye penetrant, X-ray, visual inspection)'],
                 ['repair_action', 'Action taken to repair or address the defect'],
-                ['repair_cost', 'Cost incurred to repair the defect (in local currency)'],
+                ['repair_cost', 'Cost incurred to repair the defect (in GBP)'],
               ].map(([col, desc]) => (
                 <Grid size={{ xs: 12, sm: 6 }} key={col}>
                   <Chip label={col} color="primary" size="small" sx={{ mr: 1, mb: 0.5 }} />
@@ -66,7 +66,7 @@ export default function Description() {
               <Typography variant="subtitle1">Data Quality Notes</Typography>
             </Stack>
             <Typography variant="body1" color="text.secondary" mb={2}>
-              This dataset is entirely synthetic and generated for educational and research purposes. It can be a valuable resource for manufacturing engineers, quality assurance professionals, and researchers interested in defect analysis and quality control. The data has been structured to represent realistic manufacturing scenarios while maintaining consistency and completeness.
+              This dataset is a valuable resource for titanium forging engineers, quality assurance professionals, and researchers interested in defect analysis and quality control for high-performance titanium components. The data has been structured to represent realistic titanium forging scenarios while maintaining consistency and completeness.
             </Typography>
           </Grid>
         </Grid>

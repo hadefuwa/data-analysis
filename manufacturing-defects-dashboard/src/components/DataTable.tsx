@@ -60,7 +60,11 @@ export default function DataTable({ data }: { data: DefectData[] }) {
     { field: 'defect_location', headerName: 'Location', width: 140 },
     { field: 'inspection_method', headerName: 'Inspection', width: 140 },
     { field: 'repair_action', headerName: 'Repair Action', width: 140 },
-    { field: 'repair_cost', headerName: 'Repair Cost', width: 120 },
+    { field: 'repair_cost', headerName: 'Repair Cost', width: 120, 
+      renderCell: (params: GridRenderCellParams) => (
+        <span>£{params.value}</span>
+      ) 
+    },
   ];
 
   return (

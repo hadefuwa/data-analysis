@@ -16,10 +16,24 @@ interface DefectData {
 }
 
 export default function Charts({ data }: { data: DefectData[] }) {
+  // Debug: Log the data received
+  console.log('Charts data:', data);
+
+  if (!data || data.length === 0) {
+    return (
+      <Box sx={{ mt: 4 }}>
+        <Paper elevation={2} sx={{ p: 3 }}>
+          <Typography variant="h6" color="error">No data available for charts.</Typography>
+          <Typography variant="body2" color="text.secondary">Please check if the data file is loaded correctly.</Typography>
+        </Paper>
+      </Box>
+    );
+  }
+
   // Example: Pie chart for severity
-  const critical = data.filter(d => d.severity === 'critical').length;
-  const moderate = data.filter(d => d.severity === 'moderate').length;
-  const minor = data.filter(d => d.severity === 'minor').length;
+  const critical = data.filter(d => d.severity && d.severity.toLowerCase() === 'critical').length;
+  const moderate = data.filter(d => d.severity && d.severity.toLowerCase() === 'moderate').length;
+  const minor = data.filter(d => d.severity && d.severity.toLowerCase() === 'minor').length;
   const pieData = [
     { id: 0, value: critical, label: 'Critical', color: '#d32f2f' },
     { id: 1, value: moderate, label: 'Moderate', color: '#fbc02d' },
