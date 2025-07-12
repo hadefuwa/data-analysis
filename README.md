@@ -2,16 +2,16 @@
 
 A comprehensive React-based dashboard for analyzing manufacturing quality control data. This application provides interactive visualizations, detailed analysis, and data exploration tools for manufacturing defects data.
 
-## 🚀 Features
+## Features
 
-- **📊 Interactive Charts**: Multiple chart types including bar charts, pie charts, and line charts
-- **📋 Data Table**: Sortable and searchable data table with pagination
-- **📈 Real-time Analysis**: Comprehensive statistical analysis of defects data
-- **🎨 Full-Width Design**: Responsive design that utilizes the full browser width
-- **📱 Mobile Responsive**: Works perfectly on desktop, tablet, and mobile devices
-- **⚡ Fast Performance**: Built with React and optimized for speed
+- **Interactive Charts**: Multiple chart types including bar charts, pie charts, and line charts
+- **Data Table**: Sortable and searchable data table with pagination
+- **Real-time Analysis**: Comprehensive statistical analysis of defects data
+- **Full-Width Design**: Responsive design that utilizes the full browser width
+- **Mobile Responsive**: Works perfectly on desktop, tablet, and mobile devices
+- **Fast Performance**: Built with React and optimized for speed
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 - **Frontend**: React 18 with TypeScript
 - **Styling**: CSS3 with modern design patterns
@@ -20,7 +20,7 @@ A comprehensive React-based dashboard for analyzing manufacturing quality contro
 - **Build Tool**: Vite for fast development and building
 - **Package Manager**: npm
 
-## 📦 Installation
+## Installation
 
 1. **Clone the repository**
    ```bash
@@ -41,7 +41,7 @@ A comprehensive React-based dashboard for analyzing manufacturing quality contro
 4. **Open your browser**
    Navigate to `http://localhost:5173` to view the application
 
-## 🏗️ Build for Production
+## Build for Production
 
 ```bash
 npm run build
@@ -49,7 +49,7 @@ npm run build
 
 The built files will be in the `dist` folder, ready for deployment.
 
-## 📊 Data Structure
+## Data Structure
 
 The application expects a CSV file with the following columns:
 
@@ -64,7 +64,7 @@ The application expects a CSV file with the following columns:
 - `repair_action`: Action taken to repair the defect
 - `repair_cost`: Cost of repairing the defect
 
-## 🎯 Dashboard Sections
+## Dashboard Sections
 
 ### 1. Overview
 - Summary cards with key metrics
@@ -101,7 +101,7 @@ The application expects a CSV file with the following columns:
 - Data usage guidelines
 - Feature explanations
 
-## 🎨 Design Features
+## Design Features
 
 - **Modern UI**: Clean, professional design with gradient backgrounds
 - **Responsive Layout**: Adapts to any screen size
@@ -109,7 +109,7 @@ The application expects a CSV file with the following columns:
 - **Color-coded Severity**: Visual indicators for different severity levels
 - **Full-Width Design**: Utilizes the entire browser window
 
-## 📱 Browser Compatibility
+## Browser Compatibility
 
 - Chrome (recommended)
 - Firefox
@@ -117,7 +117,7 @@ The application expects a CSV file with the following columns:
 - Edge
 - Mobile browsers
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -125,25 +125,25 @@ The application expects a CSV file with the following columns:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📄 License
+## License
 
 This project is open source and available under the [MIT License](LICENSE).
 
-## 👨‍💻 Author
+## Author
 
 **Hamed** - [GitHub Profile](https://github.com/hadefuwa)
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - React team for the amazing framework
 - Recharts for the charting library
 - PapaParse for CSV parsing capabilities
 - Vite for the fast build tool
 
-## 📞 Support
+## Support
 
 If you have any questions or need help, please open an issue on GitHub or contact the author.
 
 ---
 
-**Made with ❤️ for manufacturing quality control analysis** 
+**Made with love for manufacturing quality control analysis** 
