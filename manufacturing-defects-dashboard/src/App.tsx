@@ -48,9 +48,12 @@ import DataTable from './components/DataTable';
 import Charts from './components/Charts';
 import Analysis from './components/Analysis';
 import Description from './components/Description';
+// Import image from top-level assets folder
+import forgingImg from '../../assets/Forging.jpg';
 
 // Define the data structure for our defects
 interface DefectData {
+  id: string; // Required for DataGrid compatibility
   defect_id: string;
   product_id: string;
   defect_type: string;
@@ -134,7 +137,7 @@ function App() {
             // Filter out empty rows and ensure data is valid
             const validData = (results.data as DefectData[]).filter(item => 
               item && item.defect_id && item.defect_id.trim()
-            );
+            ).map((item, idx) => ({ ...item, id: item.defect_id ? String(item.defect_id) : String(idx) })); // id always string
             setData(validData);
             setLoading(false);
             setSnackbarMessage(`Successfully loaded ${validData.length} defect records`);
@@ -382,12 +385,52 @@ function App() {
               <Typography variant="h4" gutterBottom sx={{ mb: 4 }}>
                 Titanium Forging Quality Control Dashboard
               </Typography>
-              <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-                I received a dataset with 1,000 records from a titanium forging facility, each describing a defect found in a forged titanium part. I built this dashboard to explore and analyze the data—looking at defect types (like cracks, inclusions, and warping), where they occurred (flange, bore, web, surface), and how they were detected (ultrasonic, dye penetrant, X-ray, or visual inspection). By visualizing these trends, I identified which defects were most common and costly, and highlighted areas where the forging process could be improved. This project shows how I can turn real manufacturing data into actionable insights using modern data analysis and visualization tools.
-              </Typography>
+              {/* Image and Intro Text Side-by-Side, Responsive */}
+              <Grid container columns={12} spacing={4} alignItems="center" sx={{ mb: 4 }}>
+                <Grid gridColumn="span 5">
+                  <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <img
+                      src={forgingImg}
+                      alt="Titanium forging press"
+                      style={{
+                        width: '100%',
+                        maxWidth: 400,
+                        borderRadius: 16,
+                        boxShadow: '0 4px 24px rgba(0,0,0,0.18)',
+                        objectFit: 'cover',
+                        aspectRatio: '4/3',
+                      }}
+                    />
+                  </Box>
+                </Grid>
+                <Grid gridColumn="span 7">
+                  <Box
+                    sx={{
+                      background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
+                      borderRadius: 4,
+                      boxShadow: '0 2px 16px rgba(0,0,0,0.10)',
+                      p: 3,
+                      borderLeft: '6px solid #1976d2',
+                      mb: 2,
+                    }}
+                  >
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        fontWeight: 500,
+                        fontSize: '1.15rem',
+                        color: '#1a237e',
+                        textShadow: '0 1px 2px rgba(0,0,0,0.08)',
+                      }}
+                    >
+                      I received a dataset with 1,000 records from a titanium forging facility, each describing a defect found in a forged titanium part. I built this dashboard to explore and analyze the data—looking at defect types (like cracks, inclusions, and warping), where they occurred (flange, bore, web, surface), and how they were detected (ultrasonic, dye penetrant, X-ray, or visual inspection). By visualizing these trends, I identified which defects were most common and costly, and highlighted areas where the forging process could be improved. This project shows how I can turn real manufacturing data into actionable insights using modern data analysis and visualization tools.
+                    </Typography>
+                  </Box>
+                </Grid>
+              </Grid>
               {/* Summary Cards */}
-              <Grid container spacing={3} sx={{ mb: 4 }}>
-                <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+              <Grid container columns={12} spacing={3}>
+                <Grid gridColumn="span 3">
                   <Card>
                     <CardContent>
                       <Stack direction="row" alignItems="center" spacing={2}>
@@ -406,8 +449,7 @@ function App() {
                     </CardContent>
                   </Card>
                 </Grid>
-                
-                <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+                <Grid gridColumn="span 3">
                   <Card>
                     <CardContent>
                       <Stack direction="row" alignItems="center" spacing={2}>
@@ -426,8 +468,7 @@ function App() {
                     </CardContent>
                   </Card>
                 </Grid>
-                
-                <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+                <Grid gridColumn="span 3">
                   <Card>
                     <CardContent>
                       <Stack direction="row" alignItems="center" spacing={2}>
@@ -446,8 +487,7 @@ function App() {
                     </CardContent>
                   </Card>
                 </Grid>
-                
-                <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+                <Grid gridColumn="span 3">
                   <Card>
                     <CardContent>
                       <Stack direction="row" alignItems="center" spacing={2}>
@@ -469,8 +509,8 @@ function App() {
               </Grid>
 
               {/* Severity Distribution */}
-              <Grid container spacing={3} sx={{ mb: 4 }}>
-                <Grid size={{ xs: 12, md: 6 }}>
+              <Grid container columns={12} spacing={3} sx={{ mb: 4 }}>
+                <Grid gridColumn="span 6">
                   <Card>
                     <CardHeader title="How I Broke Down Defect Severity" />
                     <CardContent>
@@ -536,7 +576,7 @@ function App() {
                   </Card>
                 </Grid>
                 
-                <Grid size={{ xs: 12, md: 6 }}>
+                <Grid gridColumn="span 6">
                   <Card>
                     <CardHeader title="Top Defect Types" />
                     <CardContent>

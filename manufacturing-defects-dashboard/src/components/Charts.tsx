@@ -30,85 +30,99 @@ export default function Charts({ data }: { data: DefectData[] }) {
     );
   }
 
-  // Example: Pie chart for severity
-  const critical = data.filter(d => d.severity && d.severity.toLowerCase() === 'critical').length;
-  const moderate = data.filter(d => d.severity && d.severity.toLowerCase() === 'moderate').length;
-  const minor = data.filter(d => d.severity && d.severity.toLowerCase() === 'minor').length;
-  const pieData = [
-    { id: 0, value: critical, label: 'Critical', color: '#d32f2f' },
-    { id: 1, value: moderate, label: 'Moderate', color: '#fbc02d' },
-    { id: 2, value: minor, label: 'Minor', color: '#388e3c' },
-  ];
+  try {
+    // Example: Pie chart for severity
+    const critical = data.filter(d => d.severity && d.severity.toLowerCase() === 'critical').length;
+    const moderate = data.filter(d => d.severity && d.severity.toLowerCase() === 'moderate').length;
+    const minor = data.filter(d => d.severity && d.severity.toLowerCase() === 'minor').length;
+    const pieData = [
+      { id: 0, value: critical, label: 'Critical', color: '#d32f2f' },
+      { id: 1, value: moderate, label: 'Moderate', color: '#fbc02d' },
+      { id: 2, value: minor, label: 'Minor', color: '#388e3c' },
+    ];
 
-  // Example: Bar chart for defect types
-  const defectTypeCounts = data.reduce((acc, item) => {
-    acc[item.defect_type] = (acc[item.defect_type] || 0) + 1;
-    return acc;
-  }, {} as Record<string, number>);
-  const barLabels = Object.keys(defectTypeCounts);
-  const barValues = Object.values(defectTypeCounts);
+    // Example: Bar chart for defect types
+    const defectTypeCounts = data.reduce((acc, item) => {
+      acc[item.defect_type] = (acc[item.defect_type] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+    const barLabels = Object.keys(defectTypeCounts);
+    const barValues = Object.values(defectTypeCounts);
 
-  // Example: Line chart for defects over time
-  const dateCounts = data.reduce((acc, item) => {
-    acc[item.defect_date] = (acc[item.defect_date] || 0) + 1;
-    return acc;
-  }, {} as Record<string, number>);
-  const sortedDates = Object.keys(dateCounts).sort();
-  const lineLabels = sortedDates;
-  const lineValues = sortedDates.map(date => dateCounts[date]);
+    // Example: Line chart for defects over time
+    // Group by month (YYYY-MM)
+    const monthCounts = data.reduce((acc, item) => {
+      if (!item.defect_date) return acc;
+      const date = new Date(item.defect_date);
+      if (isNaN(date.getTime())) return acc;
+      const month = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+      acc[month] = (acc[month] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+    const sortedMonths = Object.keys(monthCounts).sort();
+    // Format as 'MMM YYYY'
+    const lineLabels = sortedMonths.map(m => {
+      const [year, month] = m.split('-');
+      return new Date(Number(year), Number(month) - 1).toLocaleString('default', { month: 'short', year: 'numeric' });
+    });
+    const lineValues = sortedMonths.map(month => monthCounts[month]);
 
-  return (
-    <Box sx={{ mt: 4 }}>
-      <Stack spacing={4}>
-        {/* Severity Breakdown Pie Chart */}
-        <Paper elevation={2} sx={{ p: 3 }}>
-          <Typography variant="subtitle1" gutterBottom>Severity Breakdown</Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            I broke down the severity of defects in the titanium forgings. Critical issues (like cracks or big inclusions) usually mean a part gets rejected, moderate ones (like warping) can sometimes be fixed, and minor ones are mostly cosmetic. This helped me see where the biggest risks and costs are.
-          </Typography>
-          <PieChart
-            series={[{
-              data: pieData,
-              innerRadius: 40,
-              outerRadius: 80,
-              paddingAngle: 4,
-              cornerRadius: 4,
-              startAngle: 0,
-              endAngle: 360,
-            }]}
-            width={320}
-            height={220}
-          />
-        </Paper>
+    return (
+      <Box sx={{ mt: 4 }}>
+        <Stack spacing={4}>
+          {/* Severity Breakdown Pie Chart */}
+          <Paper elevation={2} sx={{ p: 3 }}>
+            <Typography variant="subtitle1" gutterBottom>Severity Breakdown</Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              I broke down the severity of defects in the titanium forgings. Critical issues (like cracks or big inclusions) usually mean a part gets rejected, moderate ones (like warping) can sometimes be fixed, and minor ones are mostly cosmetic. This helped me see where the biggest risks and costs are.
+            </Typography>
+            <PieChart
+              series={[{
+                data: pieData,
+                innerRadius: 40,
+                outerRadius: 80,
+                paddingAngle: 4,
+                cornerRadius: 4,
+                startAngle: 0,
+                endAngle: 360,
+              }]}
+              width={320}
+              height={220}
+            />
+          </Paper>
 
-        {/* Top Defect Types Bar Chart */}
-        <Paper elevation={2} sx={{ p: 3 }}>
-          <Typography variant="subtitle1" gutterBottom>Top Defect Types</Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            I looked at which types of defects showed up most often. Structural problems (like cracks and inclusions) are the most serious, but I also tracked things like warping and surface marks. Knowing which issues pop up the most helps me focus on what really matters in the forging process.
-          </Typography>
-          <BarChart
-            xAxis={[{ scaleType: 'band', data: barLabels }]}
-            series={[{ data: barValues, color: '#1976d2' }]}
-            width={400}
-            height={220}
-          />
-        </Paper>
+          {/* Top Defect Types Bar Chart */}
+          <Paper elevation={2} sx={{ p: 3 }}>
+            <Typography variant="subtitle1" gutterBottom>Top Defect Types</Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              I looked at which types of defects showed up most often. Structural problems (like cracks and inclusions) are the most serious, but I also tracked things like warping and surface marks. Knowing which issues pop up the most helps me focus on what really matters in the forging process.
+            </Typography>
+            <BarChart
+              xAxis={[{ scaleType: 'band', data: barLabels }]}
+              series={[{ data: barValues, color: '#1976d2' }]}
+              width={400}
+              height={220}
+            />
+          </Paper>
 
-        {/* Defects Over Time Line Chart */}
-        <Paper elevation={2} sx={{ p: 3 }}>
-          <Typography variant="subtitle1" gutterBottom>Defects Over Time</Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            I tracked how the number of defects changed over time. This let me see if things were getting better or worse, and whether any process changes actually made a difference. It’s a great way to keep quality moving in the right direction.
-          </Typography>
-          <LineChart
-            xAxis={[{ scaleType: 'point', data: lineLabels }]}
-            series={[{ data: lineValues, color: '#388e3c' }]}
-            width={500}
-            height={220}
-          />
-        </Paper>
-      </Stack>
-    </Box>
-  );
+          {/* Defects Over Time Line Chart */}
+          <Paper elevation={2} sx={{ p: 3 }}>
+            <Typography variant="subtitle1" gutterBottom>Defects Over Time</Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              I tracked how the number of defects changed over time. This let me see if things were getting better or worse, and whether any process changes actually made a difference. It’s a great way to keep quality moving in the right direction.
+            </Typography>
+            <LineChart
+              xAxis={[{ scaleType: 'point', data: lineLabels }]}
+              series={[{ data: lineValues, color: '#388e3c' }]}
+              width={500}
+              height={220}
+            />
+          </Paper>
+        </Stack>
+      </Box>
+    );
+  } catch (error) {
+    console.error('Error rendering Charts:', error);
+    return <div style={{color: 'red', fontWeight: 'bold'}}>Failed to load charts. Check the console for details.</div>;
+  }
 } 

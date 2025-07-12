@@ -67,24 +67,29 @@ export default function DataTable({ data }: { data: DefectData[] }) {
     },
   ];
 
-  return (
-    <Paper elevation={3} sx={{ p: 3, mt: 3 }}>
-      <Typography variant="h6" gutterBottom>Raw Data Table</Typography>
-      <Box sx={{ height: 600, width: '100%' }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          pageSize={10}
-          rowsPerPageOptions={[10, 25, 50]}
-          disableSelectionOnClick
-          sx={{
-            '& .MuiDataGrid-row:hover': { backgroundColor: '#f5f5f5' },
-            '& .MuiDataGrid-columnHeaders': { backgroundColor: '#fafafa', fontWeight: 700 },
-            '& .MuiDataGrid-cell': { fontSize: '1rem' },
-            borderRadius: 2,
-          }}
-        />
-      </Box>
-    </Paper>
-  );
+  try {
+    return (
+      <Paper elevation={3} sx={{ p: 3, mt: 3 }}>
+        <Typography variant="h6" gutterBottom>Raw Data Table</Typography>
+        <Box sx={{ height: 600, width: '100%' }}>
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            pageSize={10}
+            rowsPerPageOptions={[10, 25, 50]}
+            disableSelectionOnClick
+            sx={{
+              '& .MuiDataGrid-row:hover': { backgroundColor: '#f5f5f5' },
+              '& .MuiDataGrid-columnHeaders': { backgroundColor: '#fafafa', fontWeight: 700 },
+              '& .MuiDataGrid-cell': { fontSize: '1rem' },
+              borderRadius: 2,
+            }}
+          />
+        </Box>
+      </Paper>
+    );
+  } catch (error) {
+    console.error('Error rendering DataTable:', error);
+    return <div style={{color: 'red', fontWeight: 'bold'}}>Failed to load data table. Check the console for details.</div>;
+  }
 } 
