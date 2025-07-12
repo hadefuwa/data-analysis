@@ -726,6 +726,13 @@ body {
 .footer p {
   opacity: 0.8;
   font-size: 0.9rem;
+  margin: 0.25rem 0;
+}
+
+.footer p:last-child {
+  margin-top: 0.5rem;
+  font-weight: 500;
+  opacity: 0.9;
 }
 
 /* Responsive design */

@@ -97,6 +97,7 @@ function App() {
       <header className="header">
         <h1>Manufacturing Defects Analysis Dashboard</h1>
         <p>Comprehensive analysis of manufacturing quality control data</p>
+        <p style={{ fontSize: '0.9rem', opacity: 0.8, marginTop: '0.5rem' }}>Created by Hamed Adefuwa</p>
       </header>
 
       <nav className="navigation">
@@ -172,6 +173,7 @@ function App() {
 
       <footer className="footer">
         <p>Manufacturing Defects Data Analysis Dashboard - Built with React & Recharts</p>
+        <p>Created by Hamed Adefuwa</p>
       </footer>
     </div>
   );

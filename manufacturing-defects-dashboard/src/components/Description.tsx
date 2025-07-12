@@ -104,6 +104,21 @@ const Description: React.FC = () => {
             <li>Export functionality for filtered data</li>
           </ul>
         </div>
+
+        <div className="description-section">
+          <h3>Developer Information</h3>
+          <div className="dataset-info">
+            <div className="info-item">
+              <strong>Created by:</strong> Hamed Adefuwa
+            </div>
+            <div className="info-item">
+              <strong>Technology:</strong> React with TypeScript
+            </div>
+            <div className="info-item">
+              <strong>Purpose:</strong> Manufacturing Quality Control Analysis
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
