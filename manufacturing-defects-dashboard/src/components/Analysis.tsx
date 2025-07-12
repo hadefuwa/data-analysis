@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, Card, CardContent, Typography, Paper, Divider, Box, Chip, Stack, Avatar } from '@mui/material';
+import { Card, CardContent, Typography, Paper, Divider, Box, Chip, Stack, Avatar } from '@mui/material';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import WarningIcon from '@mui/icons-material/Warning';
 import ErrorIcon from '@mui/icons-material/Error';
@@ -49,103 +49,93 @@ export default function Analysis({ data }: { data: DefectData[] }) {
     <Box sx={{ mt: 3 }}>
       <Typography variant="h5" gutterBottom>Detailed Analysis</Typography>
       <Divider sx={{ mb: 3 }} />
-      <Grid container spacing={3}>
-        {/* Stat Cards */}
-        <Grid item xs={12} sm={6} md={3}>
-          <Card elevation={2}>
-            <CardContent>
-              <Stack direction="row" spacing={2} alignItems="center">
-                <Avatar sx={{ bgcolor: 'primary.main' }}><TrendingUpIcon /></Avatar>
-                <Box>
-                  <Typography color="text.secondary" variant="body2">Total Defects</Typography>
-                  <Typography variant="h5">{totalDefects}</Typography>
-                </Box>
-              </Stack>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <Card elevation={2}>
-            <CardContent>
-              <Stack direction="row" spacing={2} alignItems="center">
-                <Avatar sx={{ bgcolor: 'success.main' }}><CheckCircleIcon /></Avatar>
-                <Box>
-                  <Typography color="text.secondary" variant="body2">Average Cost</Typography>
-                  <Typography variant="h5">${avgCost.toFixed(2)}</Typography>
-                </Box>
-              </Stack>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <Card elevation={2}>
-            <CardContent>
-              <Stack direction="row" spacing={2} alignItems="center">
-                <Avatar sx={{ bgcolor: 'warning.main' }}><WarningIcon /></Avatar>
-                <Box>
-                  <Typography color="text.secondary" variant="body2">Total Cost</Typography>
-                  <Typography variant="h5">${totalCost.toFixed(2)}</Typography>
-                </Box>
-              </Stack>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <Card elevation={2}>
-            <CardContent>
-              <Stack direction="row" spacing={2} alignItems="center">
-                <Avatar sx={{ bgcolor: 'error.main' }}><ErrorIcon /></Avatar>
-                <Box>
-                  <Typography color="text.secondary" variant="body2">Critical Defects</Typography>
-                  <Typography variant="h5">{criticalCount}</Typography>
-                </Box>
-              </Stack>
-            </CardContent>
-          </Card>
-        </Grid>
+      
+      {/* Stat Cards */}
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3, mb: 3 }}>
+        <Card elevation={2} sx={{ flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 12px)', md: '1 1 calc(25% - 18px)' } }}>
+          <CardContent>
+            <Stack direction="row" spacing={2} alignItems="center">
+              <Avatar sx={{ bgcolor: 'primary.main' }}><TrendingUpIcon /></Avatar>
+              <Box>
+                <Typography color="text.secondary" variant="body2">Total Defects</Typography>
+                <Typography variant="h5">{totalDefects}</Typography>
+              </Box>
+            </Stack>
+          </CardContent>
+        </Card>
+        <Card elevation={2} sx={{ flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 12px)', md: '1 1 calc(25% - 18px)' } }}>
+          <CardContent>
+            <Stack direction="row" spacing={2} alignItems="center">
+              <Avatar sx={{ bgcolor: 'success.main' }}><CheckCircleIcon /></Avatar>
+              <Box>
+                <Typography color="text.secondary" variant="body2">Average Cost</Typography>
+                <Typography variant="h5">${avgCost.toFixed(2)}</Typography>
+              </Box>
+            </Stack>
+          </CardContent>
+        </Card>
+        <Card elevation={2} sx={{ flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 12px)', md: '1 1 calc(25% - 18px)' } }}>
+          <CardContent>
+            <Stack direction="row" spacing={2} alignItems="center">
+              <Avatar sx={{ bgcolor: 'warning.main' }}><WarningIcon /></Avatar>
+              <Box>
+                <Typography color="text.secondary" variant="body2">Total Cost</Typography>
+                <Typography variant="h5">${totalCost.toFixed(2)}</Typography>
+              </Box>
+            </Stack>
+          </CardContent>
+        </Card>
+        <Card elevation={2} sx={{ flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 12px)', md: '1 1 calc(25% - 18px)' } }}>
+          <CardContent>
+            <Stack direction="row" spacing={2} alignItems="center">
+              <Avatar sx={{ bgcolor: 'error.main' }}><ErrorIcon /></Avatar>
+              <Box>
+                <Typography color="text.secondary" variant="body2">Critical Defects</Typography>
+                <Typography variant="h5">{criticalCount}</Typography>
+              </Box>
+            </Stack>
+          </CardContent>
+        </Card>
+      </Box>
 
-        {/* Pie Chart and Top Defect Types */}
-        <Grid item xs={12} md={6}>
-          <Paper elevation={2} sx={{ p: 3, height: '100%' }}>
-            <Typography variant="subtitle1" gutterBottom>Severity Breakdown</Typography>
-            <PieChart
-              series={[{
-                data: pieData,
-                innerRadius: 40,
-                outerRadius: 80,
-                paddingAngle: 4,
-                cornerRadius: 4,
-                startAngle: 0,
-                endAngle: 360,
-              }]}
-              width={320}
-              height={220}
-              slotProps={{ legend: { hidden: true } }}
-            />
-            <Stack direction="row" spacing={2} justifyContent="center" mt={2}>
-              <Chip label={`Critical: ${criticalCount}`} color="error" />
-              <Chip label={`Moderate: ${moderateCount}`} color="warning" />
-              <Chip label={`Minor: ${minorCount}`} color="success" />
-            </Stack>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Paper elevation={2} sx={{ p: 3, height: '100%' }}>
-            <Typography variant="subtitle1" gutterBottom>Top Defect Types</Typography>
-            <Stack spacing={1}>
-              {topDefectTypes.map(([type, count]) => (
-                <Box key={type} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <Stack direction="row" spacing={1} alignItems="center">
-                    <BarChartIcon color="primary" />
-                    <Typography variant="body2" sx={{ textTransform: 'capitalize' }}>{type}</Typography>
-                  </Stack>
-                  <Chip label={count} color="primary" />
-                </Box>
-              ))}
-            </Stack>
-          </Paper>
-        </Grid>
-      </Grid>
+      {/* Charts Section */}
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
+        <Paper elevation={2} sx={{ p: 3, flex: { xs: '1 1 100%', md: '1 1 calc(50% - 12px)' } }}>
+          <Typography variant="subtitle1" gutterBottom>Severity Breakdown</Typography>
+          <PieChart
+            series={[{
+              data: pieData,
+              innerRadius: 40,
+              outerRadius: 80,
+              paddingAngle: 4,
+              cornerRadius: 4,
+              startAngle: 0,
+              endAngle: 360,
+            }]}
+            width={320}
+            height={220}
+          />
+          <Stack direction="row" spacing={2} justifyContent="center" mt={2}>
+            <Chip label={`Critical: ${criticalCount}`} color="error" />
+            <Chip label={`Moderate: ${moderateCount}`} color="warning" />
+            <Chip label={`Minor: ${minorCount}`} color="success" />
+          </Stack>
+        </Paper>
+        <Paper elevation={2} sx={{ p: 3, flex: { xs: '1 1 100%', md: '1 1 calc(50% - 12px)' } }}>
+          <Typography variant="subtitle1" gutterBottom>Top Defect Types</Typography>
+          <Stack spacing={1}>
+            {topDefectTypes.map(([type, count]) => (
+              <Box key={type} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <BarChartIcon color="primary" />
+                  <Typography variant="body2" sx={{ textTransform: 'capitalize' }}>{type}</Typography>
+                </Stack>
+                <Chip label={count} color="primary" />
+              </Box>
+            ))}
+          </Stack>
+        </Paper>
+      </Box>
     </Box>
   );
 } 

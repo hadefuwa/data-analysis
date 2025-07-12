@@ -22,7 +22,7 @@ export default function Description() {
               <Typography variant="subtitle1">About This Dataset</Typography>
             </Stack>
             <Typography variant="body1" color="text.secondary" mb={2}>
-              This dataset contains simulated data related to manufacturing defects observed during quality control processes. It includes information such as defect type, detection date, location within the product, severity level, inspection method used, and repair costs. This dataset can be used for analyzing defect patterns, improving quality control processes, and assessing the impact of defects on product quality and production costs.
+              This dataset contains simulated data from our manufacturing facility's quality control system, tracking defects across our production line. Our facility produces products with multiple components that undergo various inspection processes including visual inspection, automated testing, and manual testing. The system monitors structural, functional, and cosmetic defects found in components, surfaces, and internal parts, providing comprehensive quality control insights for our manufacturing operations.
             </Typography>
             <Divider sx={{ my: 2 }} />
             <Stack direction="row" spacing={1} alignItems="center" mb={1}>

@@ -194,9 +194,9 @@ function App() {
   const drawer = (
     <div>
       <Toolbar>
-        <Typography variant="h6" noWrap component="div" sx={{ fontWeight: 700 }}>
-          Defects Dashboard
-        </Typography>
+                    <Typography variant="h6" noWrap component="div" sx={{ fontWeight: 700 }}>
+              Manufacturing Quality Control
+            </Typography>
       </Toolbar>
       <Divider />
       <List>
@@ -327,7 +327,7 @@ function App() {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div">
-              Manufacturing Defects Analysis Dashboard
+              Manufacturing Quality Control Dashboard
             </Typography>
             <Box sx={{ flexGrow: 1 }} />
             <Typography variant="body2" sx={{ mr: 2 }}>
@@ -380,9 +380,11 @@ function App() {
           {activeTab === 'overview' && (
             <Container maxWidth="xl">
               <Typography variant="h4" gutterBottom sx={{ mb: 4 }}>
-                Dashboard Overview
+                Manufacturing Quality Control Dashboard
               </Typography>
-              
+              <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+                This dashboard monitors quality control processes across our manufacturing facility, tracking defects in products through various inspection methods including visual inspection, automated testing, and manual testing. The system analyzes structural, functional, and cosmetic defects found in components, surfaces, and internal parts, providing insights to improve production quality and reduce repair costs.
+              </Typography>
               {/* Summary Cards */}
               <Grid container spacing={3} sx={{ mb: 4 }}>
                 <Grid size={{ xs: 12, sm: 6, md: 3 }}>
