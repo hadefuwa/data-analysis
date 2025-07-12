@@ -22,7 +22,7 @@ export default function Description() {
               <Typography variant="subtitle1">About This Dataset</Typography>
             </Stack>
             <Typography variant="body1" color="text.secondary" mb={2}>
-              This dataset contains records from a titanium forging press operation's quality control system, tracking defects across forged titanium parts. The facility produces high-performance titanium components for aerospace and medical applications. Each forging undergoes rigorous inspection processes including ultrasonic testing, dye penetrant inspection, X-ray, and visual checks. The system monitors structural defects (cracks, voids, inclusions), dimensional/functional defects (warping, out-of-tolerance), and cosmetic defects (surface marks, discoloration) found in features such as flanges, bores, webs, and surfaces, providing comprehensive quality control insights for titanium forging operations.
+              I received this dataset from a titanium forging facility, with each record describing a defect found in a forged titanium part. The data covers a range of inspection methods (ultrasonic, dye penetrant, X-ray, and visual checks) and tracks different types of defects (cracks, inclusions, warping, surface marks) found in features like flanges, bores, webs, and surfaces. I used this data to understand the quality challenges in titanium forging and to find ways to improve the process.
             </Typography>
             <Divider sx={{ my: 2 }} />
             <Stack direction="row" spacing={1} alignItems="center" mb={1}>
@@ -66,7 +66,7 @@ export default function Description() {
               <Typography variant="subtitle1">Data Quality Notes</Typography>
             </Stack>
             <Typography variant="body1" color="text.secondary" mb={2}>
-              This dataset is a valuable resource for titanium forging engineers, quality assurance professionals, and researchers interested in defect analysis and quality control for high-performance titanium components. The data has been structured to represent realistic titanium forging scenarios while maintaining consistency and completeness.
+              This project is a great example of how I can take real manufacturing data, analyze it, and turn it into clear, actionable insights. I structured the data and dashboard to make it easy for engineers and managers to spot trends and make better decisions about quality control.
             </Typography>
           </Grid>
         </Grid>

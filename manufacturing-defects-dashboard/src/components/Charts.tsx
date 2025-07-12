@@ -64,7 +64,7 @@ export default function Charts({ data }: { data: DefectData[] }) {
         <Paper elevation={2} sx={{ p: 3 }}>
           <Typography variant="subtitle1" gutterBottom>Severity Breakdown</Typography>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            This pie chart displays the distribution of defect severities across our manufacturing facility's quality control system. Critical defects require immediate attention and may halt production, moderate defects need prompt repair, and minor defects are cosmetic issues. Understanding this distribution helps prioritize quality control resources and identify areas needing process improvements.
+            I broke down the severity of defects in the titanium forgings. Critical issues (like cracks or big inclusions) usually mean a part gets rejected, moderate ones (like warping) can sometimes be fixed, and minor ones are mostly cosmetic. This helped me see where the biggest risks and costs are.
           </Typography>
           <PieChart
             series={[{
@@ -85,7 +85,7 @@ export default function Charts({ data }: { data: DefectData[] }) {
         <Paper elevation={2} sx={{ p: 3 }}>
           <Typography variant="subtitle1" gutterBottom>Top Defect Types</Typography>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            This bar chart shows the most frequently occurring defect types in our production line. Structural defects affect product integrity, functional defects impact performance, and cosmetic defects affect appearance. By focusing on the top categories, we can target process improvements where they will have the greatest impact on quality and cost.
+            I looked at which types of defects showed up most often. Structural problems (like cracks and inclusions) are the most serious, but I also tracked things like warping and surface marks. Knowing which issues pop up the most helps me focus on what really matters in the forging process.
           </Typography>
           <BarChart
             xAxis={[{ scaleType: 'band', data: barLabels }]}
@@ -99,7 +99,7 @@ export default function Charts({ data }: { data: DefectData[] }) {
         <Paper elevation={2} sx={{ p: 3 }}>
           <Typography variant="subtitle1" gutterBottom>Defects Over Time</Typography>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            This line chart shows the trend of total defects reported over time in our manufacturing facility. It helps us spot increases or decreases in quality issues, identify seasonal patterns, and monitor the effectiveness of process improvements. This data is crucial for maintaining consistent product quality across our production line.
+            I tracked how the number of defects changed over time. This let me see if things were getting better or worse, and whether any process changes actually made a difference. It’s a great way to keep quality moving in the right direction.
           </Typography>
           <LineChart
             xAxis={[{ scaleType: 'point', data: lineLabels }]}

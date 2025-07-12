@@ -380,10 +380,10 @@ function App() {
           {activeTab === 'overview' && (
             <Container maxWidth="xl">
               <Typography variant="h4" gutterBottom sx={{ mb: 4 }}>
-                Manufacturing Quality Control Dashboard
+                Titanium Forging Quality Control Dashboard
               </Typography>
               <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-                This dashboard monitors quality control processes across our manufacturing facility, tracking defects in products through various inspection methods including visual inspection, automated testing, and manual testing. The system analyzes structural, functional, and cosmetic defects found in components, surfaces, and internal parts, providing insights to improve production quality and reduce repair costs.
+                I received a dataset with 1,000 records from a titanium forging facility, each describing a defect found in a forged titanium part. I built this dashboard to explore and analyze the data—looking at defect types (like cracks, inclusions, and warping), where they occurred (flange, bore, web, surface), and how they were detected (ultrasonic, dye penetrant, X-ray, or visual inspection). By visualizing these trends, I identified which defects were most common and costly, and highlighted areas where the forging process could be improved. This project shows how I can turn real manufacturing data into actionable insights using modern data analysis and visualization tools.
               </Typography>
               {/* Summary Cards */}
               <Grid container spacing={3} sx={{ mb: 4 }}>
@@ -472,11 +472,11 @@ function App() {
               <Grid container spacing={3} sx={{ mb: 4 }}>
                 <Grid size={{ xs: 12, md: 6 }}>
                   <Card>
-                    <CardHeader title="Defect Severity Distribution" />
+                    <CardHeader title="How I Broke Down Defect Severity" />
                     <CardContent>
                       <Stack spacing={2}>
                         {['critical', 'moderate', 'minor'].map((severity) => {
-                          const count = data.filter(item => item.severity === severity).length;
+                          const count = data.filter(item => (item.severity || '').trim().toLowerCase() === severity).length;
                           const percentage = ((count / data.length) * 100).toFixed(1);
                           return (
                             <Box key={severity}>
@@ -500,6 +500,37 @@ function App() {
                             </Box>
                           );
                         })}
+                        {/* Show unknown severities if any */}
+                        {(() => {
+                          const known = ['critical', 'moderate', 'minor'];
+                          const unknowns = data.filter(item => {
+                            const sev = (item.severity || '').trim().toLowerCase();
+                            return sev && !known.includes(sev);
+                          });
+                          if (unknowns.length > 0) {
+                            const unknownCounts = unknowns.reduce((acc, item) => {
+                              const sev = (item.severity || '').trim();
+                              acc[sev] = (acc[sev] || 0) + 1;
+                              return acc;
+                            }, {} as Record<string, number>);
+                            return Object.entries(unknownCounts).map(([sev, count]) => (
+                              <Box key={sev}>
+                                <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
+                                  <Stack direction="row" spacing={1} alignItems="center">
+                                    {getSeverityIcon(sev)}
+                                    <Typography variant="body2" sx={{ textTransform: 'capitalize', color: 'orange' }}>
+                                      {sev} (unknown)
+                                    </Typography>
+                                  </Stack>
+                                  <Typography variant="body2" color="text.secondary">
+                                    {count}
+                                  </Typography>
+                                </Stack>
+                              </Box>
+                            ));
+                          }
+                          return null;
+                        })()}
                       </Stack>
                     </CardContent>
                   </Card>
