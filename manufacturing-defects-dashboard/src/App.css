@@ -153,6 +153,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: none;
 }
 
 .overview h2 {
@@ -164,48 +165,62 @@ body {
 
 .summary-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 2rem;
   margin-bottom: 4rem;
   width: 100%;
 }
 
 .summary-card {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(35, 39, 47, 0.95);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  padding: 2.5rem;
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  border: 1.5px solid #23272F;
+  box-shadow: 0 8px 32px rgba(30,136,229,0.10);
   text-align: center;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(.4,2,.6,1);
+  color: #F3F6F9;
+  font-family: 'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-weight: 700;
+  position: relative;
 }
 
 .summary-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 16px 48px rgba(30,136,229,0.18);
+  border-color: #1e88e5;
 }
 
 .summary-card h3 {
-  color: #64748b;
-  font-size: 0.875rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
+  color: #B0B8C1;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
 .summary-card .number {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(90deg, #1e88e5 0%, #ab47bc 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   display: block;
-  line-height: 1;
+  line-height: 1.1;
+  overflow-wrap: break-word;
+  word-break: break-all;
+  min-width: 0;
+  letter-spacing: -0.02em;
+}
+
+@media (max-width: 600px) {
+  .summary-card .number {
+    font-size: 1.5rem;
+  }
 }
 
 /* Charts container */
@@ -875,4 +890,12 @@ body {
   .analysis-card {
     padding: 1.5rem;
   }
+}
+
+/* Sidebar title fix for dark mode */
+.MuiDrawer-paper .MuiToolbar-root .MuiTypography-root {
+  color: #F3F6F9 !important;
+  font-weight: 800;
+  font-size: 1.2rem;
+  letter-spacing: -0.01em;
 }

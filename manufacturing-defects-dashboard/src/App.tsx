@@ -72,39 +72,60 @@ const drawerWidth = 240;
 // Create a modern theme
 const theme = createTheme({
   palette: {
-    mode: 'light',
+    mode: 'dark',
     primary: {
-      main: '#1976d2',
+      main: '#1e88e5', // Deep blue
     },
     secondary: {
-      main: '#dc004e',
+      main: '#ab47bc', // Vibrant purple accent
     },
     background: {
-      default: '#f5f5f5',
+      default: '#181A20', // Very dark background
+      paper: '#23272F', // Card background
+    },
+    text: {
+      primary: '#F3F6F9', // Light text
+      secondary: '#B0B8C1', // Muted text
     },
   },
   typography: {
-    fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: 'Inter, Roboto, Helvetica, Arial, sans-serif',
     h4: {
-      fontWeight: 700,
+      fontWeight: 800,
+      letterSpacing: '-0.02em',
     },
     h6: {
-      fontWeight: 600,
+      fontWeight: 700,
+    },
+    body1: {
+      fontWeight: 500,
     },
   },
   components: {
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: 12,
-          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+          borderRadius: 16,
+          boxShadow: '0 4px 32px rgba(30,136,229,0.10)',
+          background: 'rgba(35,39,47,0.95)',
+          border: '1px solid rgba(255,255,255,0.04)',
         },
       },
     },
     MuiPaper: {
       styleOverrides: {
         root: {
-          borderRadius: 12,
+          borderRadius: 16,
+          background: 'rgba(35,39,47,0.95)',
+          border: '1px solid rgba(255,255,255,0.04)',
+        },
+      },
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          background: 'linear-gradient(90deg, #1e88e5 0%, #23272F 100%)',
+          color: '#F3F6F9',
         },
       },
     },
@@ -199,7 +220,7 @@ function App() {
     <div>
       <Toolbar>
                     <Typography variant="h6" noWrap component="div" sx={{ fontWeight: 700 }}>
-              Manufacturing Quality Control
+              Titanium Forging Data Analysis
             </Typography>
       </Toolbar>
       <Divider />
@@ -331,7 +352,7 @@ function App() {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div">
-              Manufacturing Quality Control Dashboard
+              Titanium Forging Data Analysis
             </Typography>
             <Box sx={{ flexGrow: 1 }} />
             <Typography variant="body2" sx={{ mr: 2 }}>
