@@ -30,7 +30,9 @@ function App() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const response = await fetch('/defects_data.csv');
+        // Use the correct path for GitHub Pages deployment
+        const baseUrl = window.location.hostname === 'localhost' ? '' : '/data-analysis';
+        const response = await fetch(`${baseUrl}/defects_data.csv`);
         const csvText = await response.text();
         
         Papa.parse(csvText, {
